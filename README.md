@@ -1,0 +1,2 @@
+# PRM_parallel_multi_point
+Probabilistic roadmap implementation
