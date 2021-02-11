@@ -1,0 +1,983 @@
+obstacle volume=12887.9
+world volume=500000
+number of waypoints2  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+0.287019  0.263488  0.263415  0.263571  0.263343    avg=0.2682 std_dev=0.0105;   
+TOTAL TIME FOR path find-ANN=
+0.000389  0.000389  0.000387  0.000391  0.000393    avg= 0.0003898 stddev=0.00000228
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+61.6376  61.6376  61.6376  61.6376  61.6376  
+
+
+TOTAL TIME FOR KNN-GPU=
+0.053127  0.002917  0.003232  0.003517  0.002857     avg:0.0224 std dev:0.0131
+TOTAL TIME FOR path find-GPU=
+0.00073  0.000726  0.00068  0.000701  0.000705      avg:0.00708 std dev: 0.000203  
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+61.7565  61.7565  61.7565  61.7565  61.7565  
+At the end: Total Time taken: 1.413196s
+
+
+//*******************************************************************************
+from the loop: Time taken to read the obstacle: 0.001202s
+obstacle volume=12887.9
+world volume=500000
+number of waypoints=10  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+2.42526  2.34805  2.34836  2.34784  2.34812       avg= 2.3635   std_dev=0.0345
+TOTAL TIME FOR path find-ANN=
+0.003203  0.003178  0.003162  0.003156  0.003163   avg: 0.0032 
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+492.943  492.943  492.943  492.943  492.943  
+
+TOTAL TIME FOR KNN-GPU=
+0.068976  0.015705  0.015205  0.014921  0.015001    avg:0.0260  std dev=0.0240 
+TOTAL TIME FOR path find-GPU=
+0.006586  0.006095  0.005759  0.005278  0.004991    avg:0.0057
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+491.593  491.593  491.593  491.593  491.593  
+At the end: Total Time taken: 12.000358s
+ 
+
+//*******************************************************************************
+
+from the loop: Time taken to read the obstacle: 0.000717s
+obstacle volume=12887.9
+world volume=500000
+number of waypoints=100  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+25.9585  25.9597  25.9285  25.9297  25.9291  mean=25.94 std dev=0.0164
+TOTAL TIME FOR path find-ANN=
+0.035234  0.035347  0.034956  0.035098  0.034912  mean= 0.0351
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+5747.31  5747.31  5747.31  5747.31  5747.31  
+
+TOTAL TIME FOR KNN-GPU=
+0.19617  0.141241  0.139237  0.139524  0.132528  mean=0.1497    std dev=0.0262
+TOTAL TIME FOR path find-GPU=
+0.043162  0.041481  0.041496  0.047636  0.041609  mean: 0.0431
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+5709.19  5709.19  5709.19  5709.19  5709.19  
+At the end: Total Time taken: 130.913302s
+//*******************************************************************************
+
+from the loop: Time taken to read the obstacle: 0.001318s
+obstacle volume=12887.9number_of_obstacles= 500
+world volume=500000
+number of waypoints=128  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+33.3966  33.3138  33.3333  33.31  33.3083     mean=33.3324  std dev= 0.0373
+TOTAL TIME FOR path find-ANN=
+0.044634  0.044523  0.044513  0.044449  0.044437   mean= 0.0445
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+7173.99  7173.99  7173.99  7173.99  7173.99  
+
+
+TOTAL TIME FOR KNN-GPU=
+0.227702  0.181041  0.171975  0.172104  0.170695   mean= 0.1847  std dev=0.0244
+TOTAL TIME FOR path find-GPU=
+0.052128  0.052553  0.052219  0.052092  0.052198    mean= 0.0522
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+7125.79  7125.79  7125.79  7125.79  7125.79  
+At the end: Total Time taken: 168.157600s
+
+
+//*******************************************************************************
+from the loop: Time taken to read the obstacle: 0.001278s
+obstacle volume=12887.9number_of_obstacles= 500
+world volume=500000
+number of waypoints=256  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+67.0329  66.9723  66.9579  66.9582  66.9592  mean=66.9761  std_dev =0.0323
+TOTAL TIME FOR path find-ANN=
+0.090276  0.090292  0.09024  0.090185  0.090151  mean= 0.0902
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+14090.2  14090.2  14090.2  14090.2  14090.2  
+
+
+TOTAL TIME FOR KNN-GPU=
+0.420415  0.343194  0.34423  0.345374  0.346255  mean=0.3599 std dev=0.0339
+TOTAL TIME FOR path find-GPU=
+0.11244  0.104921  0.104894  0.10513  0.105026    mean= 0.1065
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+14043.2  14043.2  14043.2  14043.2  14043.2  
+At the end: Total Time taken: 337.842025s
+roksana@smarty:~/Dropbox/PRM_parallel_2017_multi_point$ 
+
+
+//*******************************************************************************
+
+
+from the loop: Time taken to read the obstacle: 0.001133s
+obstacle volume=12887.9number_of_obstacles= 500
+world volume=500000
+number of waypoints=512  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+134.251  134.199  134.2  134.291  134.196   mean=134.2274   std dev= 0.0423
+TOTAL TIME FOR path find-ANN=
+0.181969  0.181485  0.18132  0.181491  0.181346    mean=0.1815 
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+29168.6  29168.6  29168.6  29168.6  29168.6  
+
+TOTAL TIME FOR KNN-GPU=
+0.749088  0.688205  0.692416  0.694201  0.694524     mean=0.7037 std dev=0.0255
+TOTAL TIME FOR path find-GPU=
+0.213574  0.211942  0.211964  0.211988  0.211918     mean= 0.2123
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+29108.8  29108.8  29108.8  29108.8  29108.8  
+At the end: Total Time taken: 676.966239s
+
+
+//*******************************************************************************
+
+from the loop: Time taken to read the obstacle: 0.001285s
+obstacle volume=12887.9number_of_obstacles= 500
+world volume=500000
+number of waypoints=1024  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+268.608  268.569  268.466  269.405  268.563    mean=268.7222 std dev= 0.3853
+TOTAL TIME FOR path find-ANN=
+0.365281  0.364474  0.364698  0.366913  0.36474   mean=0.3652 
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+59018.8  59018.8  59018.8  59018.8  59018.8  
+
+TOTAL TIME FOR KNN-GPU=
+1.44148  1.38729  1.38876  1.38912  1.38912  mean=1.3992 std dev=0.0237
+TOTAL TIME FOR path find-GPU=
+0.430863  0.426411  0.4264  0.426586  0.426741   mean=0.4274
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+58855.2  58855.2  58855.2  58855.2  58855.2  
+At the end: Total Time taken: 1355.299996s
+
+
+
+//*******************************************************************************
+
+from the loop: Time taken to read the obstacle: 0.001321s
+obstacle volume=12887.9number_of_obstacles= 500
+world volume=500000
+number of waypoints=2500  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+657.281  656.811  656.761  656.873  657.206       mean=656.9864 std dev=0.2395  
+TOTAL TIME FOR path find-ANN=
+0.893075  0.892833  0.893631  0.894639  0.893529  mean=0.8935
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+143050  143050  143050  143050  143050  
+
+TOTAL TIME FOR KNN-GPU=
+3.41899  3.36053  3.35957  3.36123  3.36155    mean=3.3724 std dev=0.0261
+TOTAL TIME FOR path find-GPU=
+1.03983  1.03777  1.03828  1.03796  1.03795     mean=1.0384 
+Total path not found GPU = 
+1  1  1  1  1  
+Total dist travel GPU = 
+142321  142321  142321  142321  142321  
+At the end: Total Time taken: 3313.200956s
+
+
+
+
+//*******************************************************************************
+
+from the loop: Time taken to read the obstacle: 0.001442s
+obstacle volume=12887.9number_of_obstacles= 500
+world volume=500000
+number of waypoints=5000  number of sample nodes = 64  number of nn= 40
+TOTAL TIME FOR KNN-ANN=
+1312.63  1312.69  1313.41  1312.26  1312.17   mean=1312.632
+  
+TOTAL TIME FOR path find-ANN=
+1.78346  1.7855  1.78593  1.78028  1.78173    mean= 1.78338
+  
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+287280  287280  287280  287280  287280  
+couldn't found the path
+gpu iteration 0 completed.
+couldn't found the path
+gpu iteration 1 completed.
+couldn't found the path
+gpu iteration 2 completed.
+couldn't found the path
+gpu iteration 3 completed.
+couldn't found the path
+gpu iteration 4 completed.
+TOTAL TIME FOR KNN-GPU=
+6.80963  6.71976  6.72059  6.72371  6.72519   mean= 6.739776
+ 
+TOTAL TIME FOR path find-GPU=
+2.08077  2.07526  2.07503  2.07544  2.0753  
+Total path not found GPU = 
+1  1  1  1  1  
+Total dist travel GPU = 
+285842  285842  285842  285842  285842  
+At the end: Total Time taken: 6619.315277s
+roksana@smarty:~/Dropbox/PRM_parallel_2017_multi_point$ 
+
+//*******************************************************************************
+
+//*******************************************************************************
+from the loop: Time taken to read the obstacle: 0.002554s
+obstacle volume=26474.4number_of_obstacles= 1000
+world volume=500000
+number of waypoints=2  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+0.552183  0.476415  0.468798  0.471581  0.467426  
+mean=0.487281
+TOTAL TIME FOR path find-ANN=
+0.000307  0.000306  0.000301  0.000307  0.0003  
+mean=0.0003042
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+61.6376  61.6376  61.6376  61.6376  61.6376  
+
+TOTAL TIME FOR KNN-GPU=
+0.051858  0.005708  0.005561  0.005592  0.005389  
+mean=0.0148216
+TOTAL TIME FOR path find-GPU=
+0.001113  0.001087  0.000957  0.000961  0.000908  
+mean=0.0010052
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+61.7565  61.7565  61.7565  61.7565  61.7565  
+At the end: Total Time taken: 2.518575s
+
+//*******************************************************************************
+
+
+ from the loop: Time taken to read the obstacle: 0.002543s
+obstacle volume=26474.4number_of_obstacles= 1000
+world volume=500000
+number of waypoints=10  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+4.33239  4.24786  4.24722  4.2472  4.24734  
+mean=4.2644
+TOTAL TIME FOR path find-ANN=
+0.002707  0.002695  0.002675  0.002677  0.00269  
+mean=0.0026888
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+507.011  507.011  507.011  507.011  507.011  
+
+TOTAL TIME FOR KNN-GPU=
+0.071234  0.026557  0.02638  0.02648  0.026506  
+mean=0.0354314
+TOTAL TIME FOR path find-GPU=
+0.003656  0.003715  0.003749  0.003749  0.003737  
+mean=0.0037212
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+496.691  496.691  496.691  496.691  496.691  
+At the end: Total Time taken: 21.538175s
+
+
+//*******************************************************************************
+
+from the loop: Time taken to read the obstacle: 0.002540s
+obstacle volume=26474.4number_of_obstacles= 1000
+world volume=500000
+number of waypoints=128  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+60.1845  60.135  60.1271  60.1289  60.1284  
+mean=60.1408
+TOTAL TIME FOR path find-ANN=
+0.037289  0.037235  0.037209  0.037207  0.037225  
+mean=0.037233
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+7249.89  7249.89  7249.89  7249.89  7249.89  
+
+TOTAL TIME FOR KNN-GPU=
+0.376205  0.312817  0.312737  0.313043  0.312771  
+mean=0.325515
+TOTAL TIME FOR path find-GPU=
+0.05192  0.051624  0.051512  0.051626  0.051617  
+mean=0.0516598
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+7244.16  7244.16  7244.16  7244.16  7244.16  
+At the end: Total Time taken: 302.870113s
+//*******************************************************************************
+
+from the loop: Time taken to read the obstacle: 0.002690s
+obstacle volume=26474.4number_of_obstacles= 1000
+world volume=500000
+number of waypoints=256  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+121.343  121.622  121.44  121.231  121.582  
+mean=121.444
+TOTAL TIME FOR path find-ANN=
+0.074756  0.074783  0.07469  0.074548  0.075  
+mean=0.0747554
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+14231.5  14231.5  14231.5  14231.5  14231.5  
+
+TOTAL TIME FOR KNN-GPU=
+0.711324  0.631546  0.632192  0.633098  0.634191  
+mean=0.64847
+TOTAL TIME FOR path find-GPU=
+0.102805  0.101771  0.101908  0.101853  0.10188  
+mean=0.102043
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+14275.1  14275.1  14275.1  14275.1  14275.1  
+At the end: Total Time taken: 611.531230s
+roksana@smarty:~/Dropbox/PRM_parallel_2017_multi_point$ 
+
+
+
+//*******************************************************************************
+//**************************************
+
+from the loop: Time taken to read the obstacle: 0.002548s
+obstacle volume=26474.4number_of_obstacles= 1000
+world volume=500000
+number of waypoints=512  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+243.646  243.779  243.328  243.285  243.291  
+mean=243.466
+TOTAL TIME FOR path find-ANN=
+0.150684  0.15026  0.150507  0.150267  0.150307  
+mean=0.150405
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+29448.2  29448.2  29448.2  29448.2  29448.2  
+
+TOTAL TIME FOR KNN-GPU=
+1.32532  1.2511  1.25596  1.2583  1.25865  
+mean=1.26987
+TOTAL TIME FOR path find-GPU=
+0.207001  0.206879  0.206956  0.207656  0.206884  
+mean=0.207075
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+29591.4  29591.4  29591.4  29591.4  29591.4  
+At the end: Total Time taken: 1225.834247s
+
+
+//*******************************************************************************
+from the loop: Time taken to read the obstacle: 0.002572s
+obstacle volume=26474.4number_of_obstacles= 1000
+world volume=500000
+number of waypoints=1024  number of sample nodes = 64  number of nn= 40
+TOTAL TIME FOR KNN-ANN=
+486.994  486.926  486.937  486.938  486.927  
+mean=486.944
+TOTAL TIME FOR path find-ANN=
+0.302112  0.301974  0.302365  0.302169  0.302022  
+mean=0.302128
+Total path not found = 
+1  1  1  1  1  
+Total dist travel ann = 
+59524.9  59524.9  59524.9  59524.9  59524.9  
+
+TOTAL TIME FOR KNN-GPU=
+2.56502  2.51333  2.517  2.51539  2.51717  
+mean=2.52558
+TOTAL TIME FOR path find-GPU=
+0.41449  0.414549  0.414787  0.414592  0.414731  
+mean=0.41463
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+3.40282e+38  3.40282e+38  3.40282e+38  3.40282e+38  3.40282e+38  
+At the end: Total Time taken: 2451.620188s
+
+//*******************************************************************************
+
+from the loop: Time taken to read the obstacle: 0.002369s
+obstacle volume=26474.4number_of_obstacles= 1000
+world volume=500000
+number of waypoints=2500  number of sample nodes = 64  number of nn= 40
+n=970   couldn't found the path
+ann iteration 0 completed.
+n=970   couldn't found the path
+ann iteration 1 completed.
+n=970   couldn't found the path
+ann iteration 2 completed.
+n=970   couldn't found the path
+ann iteration 3 completed.
+n=970   couldn't found the path
+ann iteration 4 completed.
+TOTAL TIME FOR KNN-ANN=
+1191.61  1194.54  1193.96  1193.73  1192.93  
+mean=1193.36
+TOTAL TIME FOR path find-ANN=
+0.738944  0.743464  0.743117  0.743103  0.742227  
+mean=0.742171
+Total path not found = 
+1  1  1  1  1  
+Total dist travel ann = 
+144529  144529  144529  144529  144529  
+couldn't found the path
+couldn't found the path
+gpu iteration 0 completed.
+couldn't found the path
+couldn't found the path
+gpu iteration 1 completed.
+couldn't found the path
+couldn't found the path
+gpu iteration 2 completed.
+couldn't found the path
+couldn't found the path
+gpu iteration 3 completed.
+couldn't found the path
+couldn't found the path
+gpu iteration 4 completed.
+TOTAL TIME FOR KNN-GPU=
+6.23867  6.16506  6.16392  6.16541  6.16596  
+mean=6.1798
+TOTAL TIME FOR path find-GPU=
+1.04371  1.0176  1.01629  1.01719  1.01842  
+mean=1.02264
+Total path not found GPU = 
+2  2  2  2  2  
+Total dist travel GPU = 
+inf  inf  inf  inf  inf  
+At the end: Total Time taken: 6008.196438s
+roksana@smarty:~/Dropbox/PRM_parallel_2017_multi_point$ 
+
+
+
+
+
+
+//*******************************************************************************
+
+from the loop: Time taken to read the obstacle: 0.000249s
+obstacle volume=1769.75number_of_obstacles= 100
+world volume=500000
+number of waypoints=2  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+0.111434  0.079768  0.065451  0.057989  0.057419  
+mean=0.0744122
+TOTAL TIME FOR path find-ANN=
+0.0007  0.000558  0.00047  0.000448  0.00045  
+mean=0.0005252
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+61.6376  61.6376  61.6376  61.6376  61.6376  
+
+TOTAL TIME FOR KNN-GPU=
+0.033865  0.00083  0.000848  0.000822  0.000824  
+mean=0.0074378
+TOTAL TIME FOR path find-GPU=
+0.000584  0.000581  0.000602  0.000578  0.000585  
+mean=0.000586
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+61.6376  61.6376  61.6376  61.6376  61.6376  
+At the end: Total Time taken: 0.415982s
+roksana@smarty:~/Dropbox/PRM_parallel_2017_multi_point$ 
+//**********************************************************************************
+
+
+from the loop: Time taken to read the obstacle: 0.000279s
+obstacle volume=1769.75number_of_obstacles= 100
+world volume=500000
+number of waypoints=10  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+0.604361  0.519035  0.519059  0.519103  0.519103  
+mean=0.536132
+TOTAL TIME FOR path find-ANN=
+0.004032  0.003654  0.003653  0.00365  0.003646  
+mean=0.003727
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+489.019  489.019  489.019  489.019  489.019  
+
+TOTAL TIME FOR KNN-GPU=
+0.051631  0.005555  0.004933  0.004808  0.005176  
+mean=0.0144206
+TOTAL TIME FOR path find-GPU=
+0.004747  0.00462  0.004524  0.004627  0.004284  
+mean=0.0045604
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+488.956  488.956  488.956  488.956  488.956  
+At the end: Total Time taken: 2.801907s
+roksana@smarty:~/Dropbox/PRM_parallel_2017_multi_point$ 
+
+//**********************************************************************************
+
+from the loop: Time taken to read the obstacle: 0.000271s
+obstacle volume=1769.75number_of_obstacles= 100
+world volume=500000
+number of waypoints=128  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+7.37687  7.30617  7.34555  7.3058  7.30566  
+mean=7.32801
+TOTAL TIME FOR path find-ANN=
+0.052397  0.051978  0.052758  0.052077  0.051977  
+mean=0.0522374
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+7125.94  7125.94  7125.94  7125.94  7125.94  
+
+TOTAL TIME FOR KNN-GPU=
+0.122318  0.059276  0.059073  0.059303  0.05983  
+mean=0.07196
+TOTAL TIME FOR path find-GPU=
+0.071562  0.054036  0.053556  0.053734  0.053777  
+mean=0.057333
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+7119.2  7119.2  7119.2  7119.2  7119.2  
+At the end: Total Time taken: 37.645157s
+roksana@smarty:~/Dropbox/PRM_parallel_2017_multi_point$ B
+
+//**********************************************************************************
+
+from the loop: Time taken to read the obstacle: 0.000272s
+obstacle volume=1769.75number_of_obstacles= 100
+world volume=500000
+number of waypoints=256  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+14.8155  14.6711  14.6775  14.6736  14.7414  
+mean=14.7158
+TOTAL TIME FOR path find-ANN=
+0.104273  0.103584  0.103841  0.103458  0.104151  
+mean=0.103861
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+13987.3  13987.3  13987.3  13987.3  13987.3  
+
+TOTAL TIME FOR KNN-GPU=
+0.186698  0.117945  0.119604  0.121397  0.121381  
+mean=0.133405
+TOTAL TIME FOR path find-GPU=
+0.142643  0.106822  0.107397  0.106966  0.106803  
+mean=0.114126
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+13993.2  13993.2  13993.2  13993.2  13993.2  
+At the end: Total Time taken: 75.514449s
+roksana@smarty:~/Dropbox/PRM_parallel_2017_multi_point$ 
+
+//**********************************************************************************
+
+from the loop: Time taken to read the obstacle: 0.000271s
+obstacle volume=1769.75number_of_obstacles= 100
+world volume=500000
+number of waypoints=512  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+29.5528  29.4701  29.4083  29.4707  29.4032  
+mean=29.461
+TOTAL TIME FOR path find-ANN=
+0.209281  0.209038  0.208214  0.20898  0.20821  
+mean=0.208745
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+28958.6  28958.6  28958.6  28958.6  28958.6  
+
+TOTAL TIME FOR KNN-GPU=
+0.310869  0.237373  0.242362  0.254193  0.244666  
+mean=0.257893
+TOTAL TIME FOR path find-GPU=
+0.250743  0.214894  0.214837  0.237302  0.214867  
+mean=0.226529
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+28962.2  28962.2  28962.2  28962.2  28962.2  
+At the end: Total Time taken: 151.137659s
+
+//**********************************************************************************
+from the loop: Time taken to read the obstacle: 0.000321s
+obstacle volume=1769.75number_of_obstacles= 100
+world volume=500000
+number of waypoints=1024  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+58.9733  59.0107  58.9095  58.9631  58.9196  
+mean=58.9552
+TOTAL TIME FOR path find-ANN=
+0.419274  0.419651  0.41875  0.41959  0.420895  
+mean=0.419632
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+58564.3  58564.3  58564.3  58564.3  58564.3  
+
+TOTAL TIME FOR KNN-GPU=
+0.530928  0.487767  0.494727  0.489407  0.512133  
+mean=0.502992
+TOTAL TIME FOR path find-GPU=
+0.460716  0.432874  0.43586  0.432058  0.477872  
+mean=0.447876
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+58557.5  58557.5  58557.5  58557.5  58557.5  
+At the end: Total Time taken: 302.479183s
+roksana@smarty:~/Dropbox/PRM_parallel_2017_multi_point$ 
+
+//**********************************************************************************
+
+from the loop: Time taken to read the obstacle: 0.000256s
+obstacle volume=1769.75number_of_obstacles= 100
+world volume=500000
+number of waypoints=2500  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+143.806  143.804  143.788  144.226  144.344  
+mean=143.994
+TOTAL TIME FOR path find-ANN=
+1.01938  1.01909  1.01893  1.02311  1.02664  
+mean=1.02143
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+141990  141990  141990  141990  141990  
+
+TOTAL TIME FOR KNN-GPU=
+1.26169  1.19312  1.19811  1.19576  1.20151  
+mean=1.21004
+TOTAL TIME FOR path find-GPU=
+1.07495  1.05456  1.05804  1.05604  1.05948  
+mean=1.06061
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+141933  141933  141933  141933  141933  
+At the end: Total Time taken: 738.103627s
+roksana@smarty:~/Dropbox/PRM_parallel_2017_multi_point$ 
+
+//**********************************************************************************
+from the loop: Time taken to read the obstacle: 0.000270s
+obstacle volume=1769.75number_of_obstacles= 100
+world volume=500000
+number of waypoints=5000  number of sample nodes = 64  number of nn= 40
+
+TOTAL TIME FOR KNN-ANN=
+287.664  288.134  287.6  287.912  287.676  
+mean=287.797
+TOTAL TIME FOR path find-ANN=
+2.04045  2.04466  2.03899  2.0421  2.03942  
+mean=2.04112
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+285149  285149  285149  285149  285149  
+
+TOTAL TIME FOR KNN-GPU=
+2.4218  2.3896  2.39098  2.39552  2.39764  
+mean=2.39911
+TOTAL TIME FOR path find-GPU=
+2.11158  2.11163  2.11015  2.11111  2.11025  
+mean=2.11094
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+285000  285000  285000  285000  285000  
+At the end: Total Time taken: 1475.272501s
+roksana@smarty:~/Dropbox/PRM_parallel_2017_multi_point$ 
+
+
+
+//**********************************************************************************
+//**********************************************************************************
+
+
+
+from the loop: Time taken to read the obstacle: 0.001278s
+obstacle volume=12887.9number_of_obstacles= 500
+world volume=500000
+number of waypoints=256  number of sample nodes = 64  number of nn= 36
+ann iteration 0 completed.
+ann iteration 1 completed.
+ann iteration 2 completed.
+ann iteration 3 completed.
+ann iteration 4 completed.
+TOTAL TIME FOR KNN-ANN=
+60.9652  60.5264  60.526  60.5284  60.6223  
+mean=60.6337
+TOTAL TIME FOR path find-ANN=
+0.083514  0.08263  0.082494  0.082297  0.082346  
+mean=0.0826562
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+14162.3  14162.3  14162.3  14162.3  14162.3  
+gpu iteration 0 completed.
+gpu iteration 1 completed.
+gpu iteration 2 completed.
+gpu iteration 3 completed.
+gpu iteration 4 completed.
+TOTAL TIME FOR KNN-GPU=
+0.391296  0.338514  0.339773  0.340413  0.341789  
+mean=0.350357
+TOTAL TIME FOR path find-GPU=
+0.095265  0.095371  0.095345  0.095414  0.095296  
+mean=0.0953382
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+14083  14083  14083  14083  14083  
+At the end: Total Time taken: 305.991394s
+roksana@smarty:~/Dropbox/PRM_parallel_2017_multi_point$ 
+
+
+//**************************************************************
+
+from the loop: Time taken to read the obstacle: 0.001293s
+obstacle volume=12887.9number_of_obstacles= 500
+world volume=500000
+number of waypoints=256  number of sample nodes = 64  number of nn= 24
+
+TOTAL TIME FOR KNN-ANN=
+41.0784  41.0758  41.0082  40.9576  41.0315  
+mean=41.0303
+TOTAL TIME FOR path find-ANN=
+0.059114  0.059734  0.058779  0.058947  0.058655  
+mean=0.0590458
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+14487.9  14487.9  14487.9  14487.9  14487.9  
+gpu iteration 0 completed.
+gpu iteration 1 completed.
+gpu iteration 2 completed.
+gpu iteration 3 completed.
+gpu iteration 4 completed.
+TOTAL TIME FOR KNN-GPU=
+0.372211  0.322865  0.322143  0.325122  0.321827  
+mean=0.332834
+TOTAL TIME FOR path find-GPU=
+0.068273  0.068082  0.068722  0.074801  0.067928  
+mean=0.0695612
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+14424.9  14424.9  14424.9  14424.9  14424.9  
+At the end: Total Time taken: 207.644543s
+roksana@smarty:~/Dropbox/PRM_parallel_2017_multi_point$ 
+
+
+//*************************************************************8
+from the loop: Time taken to read the obstacle: 0.001300s
+obstacle volume=12887.9number_of_obstacles= 500
+world volume=500000
+number of waypoints=256  number of sample nodes = 64  number of nn= 16
+
+TOTAL TIME FOR KNN-ANN=
+27.5669  27.5039  27.5026  27.5024  27.511  
+mean=27.5173
+TOTAL TIME FOR path find-ANN=
+0.040333  0.040285  0.040135  0.040207  0.04019  
+mean=0.04023
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+14970.1  14970.1  14970.1  14970.1  14970.1  
+couldn't found the path
+gpu iteration 0 completed.
+couldn't found the path
+gpu iteration 1 completed.
+couldn't found the path
+gpu iteration 2 completed.
+couldn't found the path
+gpu iteration 3 completed.
+couldn't found the path
+gpu iteration 4 completed.
+TOTAL TIME FOR KNN-GPU=
+0.375671  0.318352  0.318243  0.318081  0.318935  
+mean=0.329856
+TOTAL TIME FOR path find-GPU=
+0.045377  0.045293  0.045389  0.045524  0.045806  
+mean=0.0454778
+Total path not found GPU = 
+1  1  1  1  1  
+Total dist travel GPU = 
+14883.4  14883.4  14883.4  14883.4  14883.4  
+At the end: Total Time taken: 139.844758s
+roksana@smarty:~/Dropbox/PRM_parallel_2017_multi_point$ 
+
+//************************************************************
+from the loop: Time taken to read the obstacle: 0.001296s
+obstacle volume=12887.9number_of_obstacles= 500
+world volume=500000
+number of waypoints=256  number of sample nodes = 64  number of nn= 8
+n=221   couldn't found the path
+ann iteration 0 completed.
+n=221   couldn't found the path
+ann iteration 1 completed.
+n=221   couldn't found the path
+ann iteration 2 completed.
+n=221   couldn't found the path
+ann iteration 3 completed.
+n=221   couldn't found the path
+ann iteration 4 completed.
+TOTAL TIME FOR KNN-ANN=
+14.1421  13.9776  14.0575  13.9791  13.9842  
+mean=14.0281
+TOTAL TIME FOR path find-ANN=
+0.021184  0.020954  0.021153  0.020969  0.020984  
+mean=0.0210488
+Total path not found = 
+1  1  1  1  1  
+Total dist travel ann = 
+16309.2  16309.2  16309.2  16309.2  16309.2  
+couldn't found the path
+couldn't found the path
+gpu iteration 0 completed.
+couldn't found the path
+couldn't found the path
+gpu iteration 1 completed.
+couldn't found the path
+couldn't found the path
+gpu iteration 2 completed.
+couldn't found the path
+couldn't found the path
+gpu iteration 3 completed.
+couldn't found the path
+couldn't found the path
+gpu iteration 4 completed.
+TOTAL TIME FOR KNN-GPU=
+0.373983  0.312873  0.310834  0.310032  0.309833  
+mean=0.323511
+TOTAL TIME FOR path find-GPU=
+0.027147  0.023226  0.023217  0.023302  0.023328  
+mean=0.024044
+Total path not found GPU = 
+2  2  2  2  2  
+Total dist travel GPU = 
+16156.2  16156.2  16156.2  16156.2  16156.2  
+At the end: Total Time taken: 72.164538s
+roksana@smarty:~/Dropbox/PRM_parallel_2017_multi_point$ 
+
+
+//***************************************
+from the loop: Time taken to read the obstacle: 0.001275s
+obstacle volume=12887.9number_of_obstacles= 500
+world volume=500000
+number of waypoints=256  number of sample nodes = 64  number of nn= 60
+
+TOTAL TIME FOR KNN-ANN=
+99.1664  99.022  99.0242  99.0593  99.0644  
+mean=99.0672
+TOTAL TIME FOR path find-ANN=
+0.123293  0.122913  0.122931  0.12337  0.123187  
+mean=0.123139
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+13900.1  13900.1  13900.1  13900.1  13900.1  
+
+TOTAL TIME FOR KNN-GPU=
+0.422381  0.352163  0.350486  0.358861  0.352118  
+mean=0.367202
+TOTAL TIME FOR path find-GPU=
+0.161352  0.151544  0.151445  0.170899  0.151587  
+mean=0.157365
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+13982.1  13982.1  13982.1  13982.1  13982.1  
+At the end: Total Time taken: 498.757495s
+roksana@smarty:~/Dropbox/PRM_parallel_2017_multi_point$ 
+
+
+//******************************************
+oksana@smarty:~/Dropbox/PRM_parallel_2017_multi_point$ ./a.out 
+
+from the loop: Time taken to read the obstacle: 0.000274s
+obstacle volume=1769.75number_of_obstacles= 100
+world volume=500000
+number of waypoints=256  number of sample nodes = 64  number of nn= 60
+
+TOTAL TIME FOR KNN-ANN=
+22.0021  21.9442  21.9367  21.9433  21.9426  
+mean=21.9538
+TOTAL TIME FOR path find-ANN=
+0.142865  0.142375  0.142165  0.142418  0.142742  
+mean=0.142513
+Total path not found = 
+0  0  0  0  0  
+Total dist travel ann = 
+13812.2  13812.2  13812.2  13812.2  13812.2  
+
+TOTAL TIME FOR KNN-GPU=
+0.171565  0.126988  0.127618  0.128882  0.130005  
+mean=0.137012
+TOTAL TIME FOR path find-GPU=
+0.148616  0.14788  0.147704  0.14829  0.147837  
+mean=0.148065
+Total path not found GPU = 
+0  0  0  0  0  
+Total dist travel GPU = 
+13816.1  13816.1  13816.1  13816.1  13816.1  
+At the end: Total Time taken: 112.087339s
+roksana@smarty:~/Dropbox/PRM_parallel_2017_multi_point$ 
+
+
+

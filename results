@@ -1,0 +1,90 @@
+obstacles=1000, obstacle area=79117.6 world area= 2000000
+sample nodes=64 nn=40 sample gen type=2
+
+waypoints	ann/gpu		knntime(s) 	pathfinding-time	total time	path not found 
+5000		ann		2571.83		0.801			2650.78		2342
+		gpu		12.305					90.756
+
+1000		ann		513.69		0.167			527.791		471
+		gpu		2.49		0.15			16.64		60			
+
+500		ann		256.4		0.077			263.26		237
+		gpu		1.26		0.107			8.1167		26
+
+100		ann		50.38		0.016			52.6		50
+		gpu		0.3		0.014			2.53		4
+
+10		ann		4.62		0.0016			4.75		3
+		gpu		0.067		0.0014			0.19		0
+
+2		ann		0.52		0.00028			0.539		0
+		gpu		0.056		0.00029			0.081		0
+
+
+
+
+
+obstacles=1000, obstacle area=79117.6 world area= 2000000
+sample nodes= 96 nn= 80 sample gen type=2
+
+waypoints	ann/gpu		knntime(s) 	pathfinding-time	total time	path not found 
+1000		ann		1510.35		0.32			1531.77		388
+		gpu		5.56		0.36			27.18		73
+	
+500		ann		753.9		0.165			764.28		194
+		gpu		2.8		0.18			13.23		31
+
+100		ann		148.244		0.03			151.91		39
+		gpu		0.61		0.07			4.33		6
+
+10		ann		13.42		0.003			13.59		3
+		gpu		0.098		0.005			0.291		0
+			
+2		ann		1.54		0.0003			1.58		0
+		gpu		0.07         	0.001			0.11		0
+
+
+
+obstacles=500, obstacle area=38859.5 world area= 2000000
+sample nodes=64 nn=40 sample gen type=2
+
+waypoints	ann/gpu		knntime(s) 	pathfinding-time	total time	path not found 
+
+1000		ann		274.77		0.42			282.46		461	
+		gpu		1.37					8.4
+
+500		ann		138.79		0.211			142.82		238
+		gpu		0.707
+
+100		ann		27.06		0.016			28.24		47
+		gpu		0.189		0.043			1.38		6
+
+10		ann		2.49		0.0035			2.56		3
+		gpu		0.064		0.006			0.1367		0
+
+2		ann		0.347		0.0004			0.36		0
+		gpu		0.0623		0.0009			0.077		0		
+
+
+
+obstacles=100, obstacle area=8378.25 world area= 2000000
+sample nodes=64 nn=40 sample gen type=2
+
+waypoints	ann/gpu		knntime(s) 	pathfinding-time	total time	path not found 
+
+1000		ann		58.88		0.413			61.02		461
+		gpu		0.507		0.463			2.718		357		
+
+500		ann		28.99		0.205			30.01		234
+		gpu		0.2602		0.197			1.321		177
+
+100		ann		5.78		0.041			6.144		51
+		gpu		0.101		0.057			0.56		37
+
+10		ann		0.585		0.004			0.611		4
+		gpu		0.061		0.0063			0.089		2
+
+2		ann		0.1132		0.0009			0.118		0
+		gpu		0.058		0.0009			0.0626		0
+
+

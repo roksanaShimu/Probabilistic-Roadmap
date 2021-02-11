@@ -1,0 +1,415 @@
+//The program finds the path for an UAV using Probabilistic Roadmap Method (PRM)- serial version. 
+// nvcc PRM_parallel_17.cu -use_fast_math -Xptxas -v -arch=sm_30 -lcurand -I/home/roksana/Dropbox/ann/include -L/home/roksana/Dropbox/ann/lib -lANN
+//nvcc PRM_parallel_17.cu -use_fast_math -Xptxas -v -arch=sm_21 -lcurand -I/home/shimu/Dropbox/ann/include -L/home/shimu/Dropbox/ann/lib -lANN
+//nvcc main1.cu -use_fast_math -Xptxas -v -arch=sm_21 -lcurand -I/home/shimu/ann/include -L/home/shimu/ann/lib -lANN
+
+
+//input: start & destination location
+//output: a set of locations that includes start location, intermediate locations and destination location
+
+
+
+#include<iostream>
+#include <stdint.h>
+#include <inttypes.h>
+
+#include "predefined_variables.h"
+#include "data_structures.h"
+//#include "data_structures_NEW.cuh"
+#include "milestones.h"
+#include "update_z_number.h"
+#include "update_k_neighbors.h"
+#include "ann_update_k_neighbors.h"
+#include "find_shortest_path.h"
+#include "device_BitonicSort_prm.cuh"
+
+
+
+
+using namespace std;
+
+
+void copy_obstacles(float h_obstacles[],vector<Sphere>obstacles){
+
+	int counter=0;
+	for(int i=0;i<number_of_obstacles;i++){
+		h_obstacles[counter]=obstacles[i].p.x; counter++;
+		h_obstacles[counter]=obstacles[i].p.y; counter++;
+		h_obstacles[counter]=obstacles[i].p.z; counter++;
+		h_obstacles[counter]=obstacles[i].radius; counter++;
+	}
+
+}		
+
+
+void copy_the_coordinates(float xyz[], vector<local_planner_node*> sample_local_planner_node, const int element_size_array){
+
+	for(int i=0;i<sample_local_planner_node.size();i++){
+		int group = i/warp_size;
+		int x_index=group*warp_size*3 + i%warp_size;
+		int y_index= x_index+ warp_size*1;
+		int z_index= x_index+ warp_size*2;
+		
+		xyz[x_index]=sample_local_planner_node[i]->p.x;
+		xyz[y_index]=sample_local_planner_node[i]->p.y;
+		xyz[z_index]=sample_local_planner_node[i]->p.z;
+
+	}
+	
+}
+
+
+
+
+__device__ float distanceSquared(float x, float y, float z, float o_x, float o_y, float o_z) {
+
+	return  (o_x - x)* (o_x - x) + (o_y - y)*(o_y - y) + (o_z - z)*(o_z - z);
+}
+
+__device__ bool d_doesItCollide(float x, float y, float z, float o_x, float o_y, float o_z, float o_radius){
+
+	float rSquared = UAV_radius + o_radius;
+    	rSquared *= rSquared;
+    	
+	return distanceSquared(x, y, z, o_x, o_y, o_z) < rSquared;
+
+}
+
+__device__ bool d_path_can_be_build(float s_x, float s_y, float s_z, float e_x, float e_y, float e_z, float *d_obstacles){
+	
+
+	for(float t=0.1;t<1;t=t+0.1){
+		//cout<<t<< "    "<<i<<endl;
+		float inter_x = s_x + (e_x - s_x)*t;
+		float inter_y = s_y + (e_y - s_y)*t;
+		float inter_z = s_z + (e_z - s_z)*t;
+		//local_sample[i].radius=UAV_radius;
+		for(int j=0;j<number_of_obstacles ;j++){
+			
+			if(d_doesItCollide(inter_x, inter_y, inter_z, d_obstacles[j*4], d_obstacles[j*4+1], d_obstacles[j*4+2], d_obstacles[j*4+3] )){
+				//cout<<"collides with obstacle x: "<<obstacles[j].p.x<<" y: "<<obstacles[j].p.y<<" z: "<<obstacles[j].p.z<<" radius: "<<obstacles[j].radius<<" and the UAV location is x: "<< local_sample[i].p.x<<" y: "<<local_sample[i].p.y<<" z: "<<local_sample[i].p.z<<endl<<endl;
+				return false;
+			}
+		}
+	}
+
+
+	return true;
+}
+
+__global__ void gpu_calculation(float *d_xyz, float *d_obstacles,  int *d_neighbors_serial_no, float *d_neighbors_sq_distance ){
+
+	int group_no=blockIdx.x/warp_size;
+	int x_index=group_no*warp_size*3 +blockIdx.x%warp_size;
+
+	float x=d_xyz[x_index];
+	float y=d_xyz[x_index+warp_size];
+	float z=d_xyz[x_index+warp_size*2];
+
+	__syncthreads();
+
+	__shared__ float sq_distance[init_number_of_samples]; 
+	__shared__ int serial_no[init_number_of_samples]; 
+		
+	for(int i=threadIdx.x; i<init_number_of_samples; i=i+threads_per_block){
+		//if(blockIdx.x==0)printf("i=%d\n",i);
+		if(i!=blockIdx.x){
+			group_no=i/warp_size; x_index=group_no*warp_size*3 + i%warp_size;
+
+			float e_x=d_xyz[x_index]; float e_y=d_xyz[x_index+warp_size]; float e_z=d_xyz[x_index+warp_size*2];
+
+			//if (blockIdx.x==0)printf("i=%d  x=%.2f, y=%.2f and z=%.2f\n", i, e_x, e_y, e_z);
+
+			//if a path can be built
+			if(d_path_can_be_build(x, y, z, e_x, e_y, e_z, d_obstacles)){                        
+				//calculate the distance
+				sq_distance[i]=distanceSquared(x, y, z, e_x, e_y, e_z);
+				printf("squared distance=%.3f\n", distanceSquared(x, y, z, e_x, e_y, e_z));
+				serial_no[i]=i;
+
+			}else{//else put max float number as distance
+
+				sq_distance[i]=FLT_MAX; 
+				serial_no[i]=i;
+			}
+		}else{
+			sq_distance[i]=FLT_MAX; 
+			serial_no[i]=i;
+		}
+
+	}
+
+	__syncthreads();
+
+	//if(blockIdx.x==1){
+		if(threadIdx.x==0){
+			for(int i=0; i<init_number_of_samples; i++){
+				//printf("threadIdx.x =%d, i= %d, serial_no=%d\n",threadIdx.x, i, serial_no[i]);
+				printf("i= %d, serial_no=%d, sq_distance=%.3f \n", i, serial_no[i], sq_distance[i]);
+			}
+		}
+	//}
+
+	__syncthreads();
+
+	bitonic_sort(sq_distance, serial_no);
+
+	__syncthreads();
+
+	/*if(blockIdx.x==12){
+		if(threadIdx.x==0){
+			for(int i=0; i<init_number_of_samples; i++){
+				//printf("threadIdx.x =%d, i= %d, serial_no=%d\n",threadIdx.x, i, serial_no[i]);
+				printf("after: i= %d, serial_no=%d, sq_distance=%.3f \n", i, serial_no[i], sq_distance[i]);
+			}
+		}
+	//}*/
+	__syncthreads();
+
+	if(threads_per_block >= 2*number_of_elements_for_knn){
+		if(threadIdx.x<number_of_elements_for_knn){
+			d_neighbors_sq_distance[blockIdx.x*number_of_elements_for_knn+threadIdx.x] = sq_distance[threadIdx.x];
+		}else if(threadIdx.x>=number_of_elements_for_knn && threadIdx.x<2*number_of_elements_for_knn){
+			unsigned int t_id=threadIdx.x-number_of_elements_for_knn;
+			d_neighbors_serial_no[blockIdx.x*number_of_elements_for_knn+t_id] = serial_no[t_id];
+		}
+		
+
+	}else if (threads_per_block >= number_of_elements_for_knn){
+
+		if(threadIdx.x<number_of_elements_for_knn){
+			d_neighbors_sq_distance[blockIdx.x*number_of_elements_for_knn+threadIdx.x] = sq_distance[threadIdx.x];
+			d_neighbors_serial_no[blockIdx.x*number_of_elements_for_knn+threadIdx.x] =  serial_no[threadIdx.x];
+
+		}
+
+	}else{
+		for(unsigned int t_id=threadIdx.x; t_id<number_of_elements_for_knn; t_id=t_id+threads_per_block){
+			d_neighbors_sq_distance[blockIdx.x*number_of_elements_for_knn+t_id] = sq_distance[t_id];
+			d_neighbors_serial_no[blockIdx.x*number_of_elements_for_knn+t_id] =  serial_no[t_id];
+
+		}
+
+	}
+
+
+	__syncthreads();
+}
+
+
+
+
+int main(){
+
+		
+	clock_t tStart = clock();
+
+	//******************initialize the start and the destination location***********************
+	local_planner_node* start= new local_planner_node();
+	//cout<<start->p.x<<"  "<<start->p.y<<"   "<<start->p.z<<endl;
+	start->set_local_planner_node(start_x, start_y, start_z);
+	//cout<<start->p.x<<"  "<<start->p.y<<"   "<<start->p.z<<endl;
+	start->dist_from_start=0;
+
+	local_planner_node* destination = new local_planner_node();
+	destination->set_local_planner_node(goal_x, goal_y, goal_z);
+	//cout<<destination->p.x<<"  "<<destination->p.y<<"   "<<destination->p.z<<endl;
+
+
+	//generate_obstacle();
+
+	//cout<<" from the main file: INT64_MAX="<<INT64_MAX<<endl;
+	//****************************read obstacles************************************************
+	
+	clock_t read_obstacle_tStart = clock();	
+	vector<Sphere>obstacles; obstacles.resize(number_of_obstacles);
+	read_the_obstacles(obstacles);
+	clock_t read_obstacle_tEnd = clock();	
+	
+
+	//************************boundary conditions***********************************************
+	//check if the start and destination location collides with any obstacles
+	if(!boundary_condition_satisfied(start, destination, obstacles)){
+		cout<<"boundary condition doesn't satisfied"<<endl;
+		return 0;
+	}
+
+
+	//**************************generate the sample locations***********************************
+	vector<local_planner_node*> sample_local_planner_node;
+	cout<<"Select one of the following options:"<<endl<<"   1. Generate Random Samples"<<endl<<"   2. Generate Grid Samples"<<endl<<"   3. Generate Exact Grid Samples"<<endl;
+
+
+
+	clock_t sample_generation_tStart = clock();
+	int a=2;
+	//cin>>a;
+	if(a==1){   // Generate Random Samples
+		sample_local_planner_node=generate_milestone_sample_local_planner_node(obstacles, start, destination);
+		
+	}else if(a==2){	//Generate Grid Samples
+		sample_local_planner_node=generate_grid_milestone_sample_local_planner_node(obstacles, start, destination);
+		
+	}else if(a==3){	//Generate exact Grid Samples
+		sample_local_planner_node=generate_exact_grid_milestone_sample_local_planner_node(obstacles, start, destination);
+		
+	}else{
+		cout<<"Invaild selection!"<<endl<<"Program is terminating."<<endl;
+		return 0;
+	}
+
+	clock_t sample_generation_tEnd = clock();	
+	
+	cout<<"size of sample_local_planner_node="<<sample_local_planner_node.size()<<"   "<<sample_local_planner_node[0]->radius<<endl;
+	//generated nodes for debugging
+	/*for(int i=0;i<sample_local_planner_node.size();i++){
+		cout<<"i="<<i<<"  x=" <<sample_local_planner_node[i]->p.x<<"  y=" <<sample_local_planner_node[i]->p.y<<"  z=" <<sample_local_planner_node[i]->p.z<<endl;
+	}*/
+
+
+	//******************************** NEIGHBOR SELECTION PROCESS*******************************
+
+	cout<<"Select one of the following options:"<<endl<<"   1. Select neighbors based on z-numbers"<<endl<<"   2. Select neighbors using ANN library"<<endl;
+
+
+	clock_t knn_process_tStart=clock();
+	a=3;
+	//cin>>a;
+	if(a==1){   // Select neighbors based on z-numbers
+		
+		update_z_numbers(sample_local_planner_node);
+
+		//print_z_numbers(sample_local_planner_node);
+
+		sort_according_to_z_number(sample_local_planner_node); //quick sort
+
+
+		//debugging
+		for(int i =0; i<sample_local_planner_node.size();i++){
+			sample_local_planner_node[i]->index=i;
+		}
+		
+		update_kth_neighbors(sample_local_planner_node, obstacles);
+		
+		//print_neighbors_update(sample_local_planner_node);*/
+		
+	}else if(a==2){	//Select neighbors using ANN library
+
+		//debugging
+		for(int i =0; i<sample_local_planner_node.size();i++){
+			sample_local_planner_node[i]->index=i;
+		}
+		
+		//Nearest Neighbors
+		update_kth_neighbors_with_ann(sample_local_planner_node, obstacles);
+		//print_neighbors_update(sample_local_planner_node);
+	
+		
+	}else if (a==3){ // do the parallel calculation 
+
+		for(int i =0; i<sample_local_planner_node.size();i++){
+			sample_local_planner_node[i]->index=i;
+		}
+	
+		//x,y,z coordinates of sample nodes 
+		const int element_size_array= (int) ceil((double)init_number_of_samples/32)*32;
+		float xyz[element_size_array*3]; copy_the_coordinates(xyz, sample_local_planner_node, element_size_array);//host
+		float *d_xyz; cudaMalloc((void**)&d_xyz, sizeof(float)*element_size_array*3) ; // device
+	
+		//obstacles
+		float h_obstacles[number_of_obstacles*4]; copy_obstacles(h_obstacles,obstacles);
+		float *d_obstacles; cudaMalloc((void**)&d_obstacles, sizeof(float)*number_of_obstacles*4) ; // device
+		
+		
+		//knn_neighbour_nodes_no ->serial no in the vector
+		int h_neighbors_serial_no[init_number_of_samples*number_of_elements_for_knn];
+		int *d_neighbors_serial_no; cudaMalloc((void**)&d_neighbors_serial_no, sizeof(int) * init_number_of_samples * number_of_elements_for_knn) ; // device
+
+		//knn_neighbour_corresponding_distances
+		float h_neighbors_sq_distance[init_number_of_samples*number_of_elements_for_knn];
+		float *d_neighbors_sq_distance; cudaMalloc((void**)&d_neighbors_sq_distance, sizeof(float) * init_number_of_samples * number_of_elements_for_knn) ; // device
+
+
+		cudaMemcpy(d_xyz, xyz, sizeof(float)*element_size_array*3, cudaMemcpyHostToDevice);
+		cudaMemcpy(d_obstacles, h_obstacles, sizeof(float)*number_of_obstacles*4, cudaMemcpyHostToDevice);
+
+		cudaDeviceSynchronize();
+
+		gpu_calculation<<< number_of_blocks, threads_per_block >>>(d_xyz, d_obstacles, d_neighbors_serial_no, d_neighbors_sq_distance);
+
+		//kernel call
+		cudaDeviceSynchronize();
+
+		cudaMemcpy(h_neighbors_serial_no,d_neighbors_serial_no, sizeof(int)*init_number_of_samples*number_of_elements_for_knn, cudaMemcpyDeviceToHost);
+
+		cudaMemcpy(h_neighbors_sq_distance,d_neighbors_sq_distance, sizeof(float)*init_number_of_samples*number_of_elements_for_knn, cudaMemcpyDeviceToHost);
+
+		//UPDATE THE DATA
+		typedef pair<local_planner_node*, float> apair;
+		int counter=0;
+		
+		for(int i=0;i<init_number_of_samples; i++){
+			for(int j=0;j<number_of_elements_for_knn; j++){
+
+				sample_local_planner_node[i]->knn.push_back(apair( sample_local_planner_node[h_neighbors_serial_no[counter]], h_neighbors_sq_distance[counter] ) ); 
+				
+				
+				counter++;
+			}			
+		}		
+
+
+	}else{
+		cout<<"Invaild selection!"<<endl<<"Program is terminating."<<endl;
+		return 0;
+	}
+	
+
+	clock_t knn_process_tEnd = clock();	
+	printf("Time taken for knn process: %.6fs\n", (double)(knn_process_tEnd - knn_process_tStart)/CLOCKS_PER_SEC);
+	
+
+	for(int i=0;i<init_number_of_samples; i++){
+		cout<<"smaple_node_no = "<<i<<"  position: x="<<sample_local_planner_node[i]->p.x<<" y="<<sample_local_planner_node[i]->p.y<<" z="<<sample_local_planner_node[i]->p.z<<endl;
+		for(int j=0; j<sample_local_planner_node[i]->knn.size(); j++){
+			//cout<<sample_local_planner_node[i]->knn.first->index<<"   "<<sample_local_planner_node[i]->knn.second<<endl;
+			cout<<sample_local_planner_node[i]->knn[j].first->index<<", "<<sample_local_planner_node[i]->knn[j].second<<endl;
+		}
+		cout<<endl<<endl;
+	}
+
+
+
+	//********************************** find the shortest path ********************************
+	clock_t path_find_tStart = clock();
+	//cout<<start->z_number<<"     "<< start->knn.size()<< endl << destination->z_number<<"  "<< destination->knn.size()<<endl<<endl;
+	if (find_the_shortest_path(start, destination, sample_local_planner_node)){
+	 
+		//print_the_source_locations(sample_local_planner_node);
+	
+		cout<<"distance from start to destination: "<<destination->dist_from_start<<endl;
+
+		print_destination_to_start_index(sample_local_planner_node, start, destination);
+
+		write_in_a_file(sample_local_planner_node, start, destination);
+		write_the_sample_nodes_in_a_file(sample_local_planner_node);
+
+	}
+	clock_t path_find_tEnd = clock();	
+	
+	
+	clock_t tEnd = clock();
+
+	
+
+	printf("Time taken to read the obstacle: %.6fs\n", (double)(read_obstacle_tEnd - read_obstacle_tStart)/CLOCKS_PER_SEC);
+	printf("Time taken in the sample generation process: %.6fs\n", (double)(sample_generation_tEnd - sample_generation_tStart)/CLOCKS_PER_SEC);
+	
+	printf("Time taken to find the shortest path: %.6fs\n", (double)(path_find_tEnd - path_find_tStart)/CLOCKS_PER_SEC);
+
+	printf("Total Time taken: %.6fs\n", (double)(tEnd - tStart)/CLOCKS_PER_SEC);
+
+	return 0;
+
+}
+
